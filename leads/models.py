@@ -14,8 +14,8 @@ def validate_date_of_birth(value):
 
 
 class Lead(models.Model):
-    first_name = models.CharField(max_length=20, verbose_name="First Name", help_text="Enter the lead's first name")
-    last_name = models.CharField(max_length=20, verbose_name="Last Name",  help_text="Enter the lead's last name")
+    first_name = models.CharField(max_length=150, verbose_name="First Name", help_text="Enter the lead's first name")
+    last_name = models.CharField(max_length=150, verbose_name="Last Name",  help_text="Enter the lead's last name")
     date_of_birth = models.DateField(
         null=True, blank=True, help_text="YYYY-MM-DD", validators=[validate_date_of_birth])
     agent = models.ForeignKey("Agent", on_delete=models.CASCADE, related_name="leads")

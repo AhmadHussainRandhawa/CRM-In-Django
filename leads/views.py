@@ -1,5 +1,6 @@
-from django.shortcuts import render
-from .models import Lead
+from django.shortcuts import render, redirect
+from .models import Lead, Agent
+from .forms import LeadForm
 
 
 def leadList(request):
@@ -13,3 +14,23 @@ def leadDetail(request, pk):
     context = {'lead': lead}
 
     return render(request, 'leads/leadDetail.html', context)
+
+def leadCreate(request):
+
+    if request.method=='POST':
+        form = LeadForm(request.POST)
+        if form.is_valid():
+            first = form.cleaned_data['first_name']
+            last = form.cleaned_data['last_name']
+            dob = form.cleaned_data['date_of_birth']
+            agent = Agent.objects.get(id=2)
+
+            Lead.objects.create(first_name=first, last_name=last, date_of_birth=dob, agent=agent)
+            return redirect('leads:leadList')
+        
+    else: 
+        form = LeadForm()
+
+    context = {'form': form}
+
+    return render(request, 'leads/leadCreate.html', context)
