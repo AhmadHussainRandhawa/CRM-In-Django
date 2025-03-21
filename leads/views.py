@@ -1,3 +1,15 @@
 from django.shortcuts import render
+from .models import Lead
 
-# Create your views here.
+
+def leadList(request):
+    leads = Lead.objects.all()
+    context = {'leads': leads}
+
+    return render(request, 'leads/leadList.html', context)
+
+def leadDetail(request, pk):
+    lead = Lead.objects.get(id=pk)
+    context = {'lead': lead}
+
+    return render(request, 'leads/leadDetail.html', context)
