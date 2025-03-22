@@ -1,7 +1,9 @@
 from django import forms
+from .models import Lead
 
-class LeadForm(forms.Form):
-    first_name = forms.CharField(max_length=150)
-    last_name = forms.CharField(max_length=150)
-    date_of_birth = forms.DateField(widget=forms.DateInput(attrs={'type':'date'}))
-    
+class LeadModelForm(forms.ModelForm):
+    class Meta:
+        model=Lead
+        fields = ['first_name', 'last_name', 'date_of_birth', 'agent']
+        widgets={ 'date_of_birth': forms.DateInput(attrs={'type':'date'})}
+        help_texts = {'date_of_birth': ''}

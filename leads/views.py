@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
-from .models import Lead, Agent
-from .forms import LeadForm
+from .models import Lead
+from .forms import LeadFormModel
 
 
 def leadList(request):
@@ -16,48 +16,31 @@ def leadDetail(request, pk):
     return render(request, 'leads/leadDetail.html', context)
 
 def leadCreate(request):
-
     if request.method=='POST':
-        form = LeadForm(request.POST)
+        form = LeadFormModel(request.POST)
         if form.is_valid():
-            first = form.cleaned_data['first_name']
-            last = form.cleaned_data['last_name']
-            dob = form.cleaned_data['date_of_birth']
-            agent = Agent.objects.get(id=2)
-
-            Lead.objects.create(first_name=first, last_name=last, date_of_birth=dob, agent=agent)
+            form.save()
             return redirect('leads:leadList')
         
     else: 
-        form = LeadForm()
-
-    context = {'form': form}
-
+        form = LeadFormModel()
+    
+    context = {'form':form}
     return render(request, 'leads/leadCreate.html', context)
-
-
+    
 def leadEdit(request, pk):
     lead = Lead.objects.get(id=pk)
     if request.method=='POST':
-        form = LeadForm(request.POST)
+        form = LeadFormModel(request.POST, instance=lead)   # It add new data in the previous lead
         if form.is_valid():
-            first = form.cleaned_data['first_name']
-            last = form.cleaned_data['last_name']
-            dob = form.cleaned_data['date_of_birth']
-            agent = Agent.objects.get(id=1)
-
-            lead.first_name=first
-            lead.last_name = last
-            lead.date_of_birth = dob
-            lead.agent = agent
-            lead.save()
+            form.save()
             return redirect('leads:leadList')
-
     else: 
-        form = LeadForm()
-
-    context = {'form': form}    
+        form = LeadFormModel(instance=lead)     # It shows the previous data of a lead
+    
+    context = {'form':form}
     return render(request, 'leads/leadEdit.html', context)
+    
 
 def leadDelete(request, pk):
     lead = Lead.objects.get(id=pk)

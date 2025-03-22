@@ -1,11 +1,7 @@
-<!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Create a new lead</title>
-</head>
-<body>
+{% extends 'base.html' %}
+{% block title %} {% endblock title %}     
+{% block content %} 
+
     <h1>Create a new lead</h1>
     <form method="post">
         {% csrf_token %}
@@ -14,5 +10,4 @@
     </form>
     <a href="{% url 'leads:leadList' %}" style="margin-top: 10px; display: block;">Go Back</a>
 
-</body>
-</html>
+{% endblock content %}
