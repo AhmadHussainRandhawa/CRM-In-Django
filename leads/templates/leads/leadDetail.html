@@ -10,6 +10,9 @@
     <p>First Name: {{lead.first_name}}</p>
     <p>Last Name: {{lead.last_name}}</p>
     <p>Date of Birth: {{lead.date_of_birth}}</p>
+    <p>The agent assigned to {{lead.first_name}} is {{lead.agent}}</p>
     <a href="{% url 'leads:leadList' %}">Back</a>
+    <a href="{% url 'leads:leadEdit' lead.pk %}" >Edit</a>
+    <a href="{% url 'leads:leadDelete' lead.pk %}">Delete</a>
 </body>
 </html>

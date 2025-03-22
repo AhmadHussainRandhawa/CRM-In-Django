@@ -34,3 +34,32 @@ def leadCreate(request):
     context = {'form': form}
 
     return render(request, 'leads/leadCreate.html', context)
+
+
+def leadEdit(request, pk):
+    lead = Lead.objects.get(id=pk)
+    if request.method=='POST':
+        form = LeadForm(request.POST)
+        if form.is_valid():
+            first = form.cleaned_data['first_name']
+            last = form.cleaned_data['last_name']
+            dob = form.cleaned_data['date_of_birth']
+            agent = Agent.objects.get(id=1)
+
+            lead.first_name=first
+            lead.last_name = last
+            lead.date_of_birth = dob
+            lead.agent = agent
+            lead.save()
+            return redirect('leads:leadList')
+
+    else: 
+        form = LeadForm()
+
+    context = {'form': form}    
+    return render(request, 'leads/leadEdit.html', context)
+
+def leadDelete(request, pk):
+    lead = Lead.objects.get(id=pk)
+    lead.delete()
+    return redirect('leads:leadList')
