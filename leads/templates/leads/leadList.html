@@ -2,7 +2,7 @@
 {% block title %} {% endblock title %}     
 {% block content %} 
 
-    <h1>The list of Leads</h1>
+    <h1 class="bg-red-500 text-3xl">The list of Leads</h1>
     {% for lead in leads %}
         <div class="leads">
             <a href="{% url 'leads:leadDetail' lead.id %}">{{lead.first_name}} {{lead.last_name}}</a> - DOB: {{lead.date_of_birth}}

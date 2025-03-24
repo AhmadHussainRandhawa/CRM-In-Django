@@ -1,6 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Lead
-from .forms import LeadFormModel
+from .forms import LeadModelForm
 
 
 def leadList(request):
@@ -17,13 +17,13 @@ def leadDetail(request, pk):
 
 def leadCreate(request):
     if request.method=='POST':
-        form = LeadFormModel(request.POST)
+        form = LeadModelForm(request.POST)
         if form.is_valid():
             form.save()
             return redirect('leads:leadList')
         
     else: 
-        form = LeadFormModel()
+        form = LeadModelForm()
     
     context = {'form':form}
     return render(request, 'leads/leadCreate.html', context)
@@ -31,12 +31,12 @@ def leadCreate(request):
 def leadEdit(request, pk):
     lead = Lead.objects.get(id=pk)
     if request.method=='POST':
-        form = LeadFormModel(request.POST, instance=lead)   # It add new data in the previous lead
+        form = LeadModelForm(request.POST, instance=lead)   # It add new data in the previous lead
         if form.is_valid():
             form.save()
             return redirect('leads:leadList')
     else: 
-        form = LeadFormModel(instance=lead)     # It shows the previous data of a lead
+        form = LeadModelForm(instance=lead)     # It shows the previous data of a lead
     
     context = {'form':form}
     return render(request, 'leads/leadEdit.html', context)

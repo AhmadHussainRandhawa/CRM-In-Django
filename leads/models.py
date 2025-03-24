@@ -14,10 +14,10 @@ def validate_date_of_birth(value):
 
 
 class Lead(models.Model):
-    first_name = models.CharField(max_length=150, verbose_name="First Name", help_text="Enter the lead's first name")
-    last_name = models.CharField(max_length=150, verbose_name="Last Name",  help_text="Enter the lead's last name")
+    first_name = models.CharField(max_length=150, verbose_name="First Name")
+    last_name = models.CharField(max_length=150, verbose_name="Last Name")
     date_of_birth = models.DateField(
-        null=True, blank=True, help_text="YYYY-MM-DD", validators=[validate_date_of_birth])
+        null=True, blank=True, validators=[validate_date_of_birth])
     agent = models.ForeignKey("Agent", on_delete=models.CASCADE, related_name="leads")
 
     class Meta:
@@ -29,7 +29,7 @@ class Lead(models.Model):
 
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agent_profile', verbose_name='System User')
-    active = models.BooleanField(default=True, help_text="Is the agent still active?")
+    active = models.BooleanField(default=True, )
 
     def __str__(self):
         return f"{self.user.username}"
