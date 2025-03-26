@@ -40,7 +40,7 @@ def leadEdit(request, pk):
     else: 
         form = LeadModelForm(instance=lead)     # It shows the previous data of a lead
     
-    context = {'form':form}
+    context = {'form':form, 'lead':lead}
     return render(request, 'leads/leadEdit.html', context)
     
 
