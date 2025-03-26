@@ -2,6 +2,8 @@ from django.shortcuts import render, redirect
 from .models import Lead
 from .forms import LeadModelForm
 
+def homePage(request):
+    return render(request, 'homePage.html')
 
 def leadList(request):
     leads = Lead.objects.all()
