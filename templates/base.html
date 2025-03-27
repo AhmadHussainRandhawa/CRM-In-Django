@@ -1,3 +1,5 @@
+{% load static %}
+
 <!DOCTYPE html>
 {% load static tailwind_tags %}
 <html lang="en">
@@ -6,6 +8,7 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{% block title %} {% endblock title %}</title>
 {% tailwind_css %} 
+<link rel="stylesheet" href="{% static 'style.css' %}">
 </head>
 <body>
     {% include "navbar.html" %}
@@ -15,6 +18,8 @@
     {% if settings.DEBUG %}
         {% include 'django_browser_reload/script.html' %}
     {% endif %}
+
+    {% include "scripts.html" %}
 
 </body>
 </html>
