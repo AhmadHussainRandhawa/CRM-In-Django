@@ -3,9 +3,9 @@ from . import views
 
 app_name = 'leads'
 urlpatterns = [
-    path('', views.leadList, name='leadList'),
-    path('<int:pk>/', views.leadDetail, name='leadDetail'),
-    path('create/', views.leadCreate, name='leadCreate'),
-    path('<int:pk>/edit/', views.leadEdit, name='leadEdit'),
-    path('<int:pk>/delete/', views.leadDelete, name='leadDelete')
+    path('', views.LeadListView.as_view(), name='leadList'),
+    path('<int:pk>/', views.LeadDetailView.as_view(), name='leadDetail'),
+    path('create/', views.LeadCreateView.as_view(), name='leadCreate'),
+    path('<int:pk>/edit/', views.LeadUpdateView.as_view(), name='leadEdit'),
+    path('<int:pk>/delete/', views.LeadDeleteView.as_view(), name='leadDelete')
 ]

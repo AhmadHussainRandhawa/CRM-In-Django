@@ -1,7 +1,55 @@
-from django.shortcuts import render, redirect
+from django.shortcuts import render, redirect, reverse
 from .models import Lead
 from .forms import LeadModelForm
+from django.views import generic
 
+# Class Based Views
+class HomePageView(generic.TemplateView):
+    template_name = 'homePage.html'
+
+
+class LeadListView(generic.ListView):
+    template_name = 'leads/leadList.html'
+    queryset = Lead.objects.all()
+    context_object_name = 'leads'
+
+
+
+class LeadCreateView(generic.CreateView):
+    template_name = 'leads/leadCreate.html'
+    form_class = LeadModelForm
+    
+    def get_success_url(self):
+        return reverse ('leads:leadList')
+
+
+class LeadDetailView(generic.DetailView):
+    template_name = 'leads/leadDetail.html'
+    queryset = Lead.objects.all()
+    context_object_name = 'lead'
+
+
+class LeadUpdateView(generic.UpdateView):
+    template_name = 'leads/leadEdit.html'
+    queryset = Lead.objects.all()
+    form_class = LeadModelForm
+    context_object_name = 'lead'
+
+    def get_success_url(self):
+        return reverse('leads:leadList')
+
+
+class LeadDeleteView(generic.DeleteView):
+    template_name = 'leads/leadDelete.html'
+    queryset = Lead.objects.all()
+
+    def get_success_url(self):
+        return reverse('leads:leadList')
+
+
+
+# Function based views:
+"""
 def homePage(request):
     return render(request, 'homePage.html')
 
@@ -44,7 +92,7 @@ def leadEdit(request, pk):
     return render(request, 'leads/leadEdit.html', context)
     
 
-def leadDelete(request, pk):
+def leadDelete(pk):
     lead = Lead.objects.get(id=pk)
     lead.delete()
-    return redirect('leads:leadList')
+    return redirect('leads:leadList')"""
