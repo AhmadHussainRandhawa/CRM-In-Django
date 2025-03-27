@@ -1,3 +1,4 @@
+from django.core.mail import send_mail
 from django.shortcuts import render, redirect, reverse
 from .models import Lead
 from .forms import LeadModelForm
@@ -21,6 +22,16 @@ class LeadCreateView(generic.CreateView):
     
     def get_success_url(self):
         return reverse ('leads:leadList')
+    
+    def form_valid(self, form):
+        send_mail(
+            subject='A lead is created',
+            message="Go and check the new leads",
+            from_email='officialtest',
+            recipient_list=["i don't kniw test" 'maybe serius hojaye']
+        )
+        return super().form_valid(form)
+    
 
 
 class LeadDetailView(generic.DetailView):
