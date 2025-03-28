@@ -2,16 +2,23 @@ from django.db import models
 from django.contrib.auth.models import AbstractUser
 from datetime import date
 from django.core.exceptions import ValidationError
+from django.db.models.signals import post_save
+
 
 class User(AbstractUser):
     pass
 
 
+class UserProfile(models.Model):
+    user = models.OneToOneField(User, on_delete=models.CASCADE)
+
+    def __str__(self):
+        return self.user.username
+
 def validate_date_of_birth(value):
     # Ensure the dob is not in future
     if value > date.today():
         raise ValidationError("Date of birth can't be in the future")
-
 
 class Lead(models.Model):
     first_name = models.CharField(max_length=150, verbose_name="First Name")
@@ -30,7 +37,14 @@ class Lead(models.Model):
 class Agent(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agent_profile', verbose_name='System User')
     active = models.BooleanField(default=True, )
+    organisation = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
     def __str__(self):
         return f"{self.user.username}"
 
+
+def post_user_created_signal(sender, instance, created, **kwargs):
+    if created:
+        UserProfile.objects.create(user=instance)
+
+post_save.connect(post_user_created_signal, sender=User)
