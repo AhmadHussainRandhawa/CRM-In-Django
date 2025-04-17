@@ -9,12 +9,19 @@
         <span class="ml-3 text-xl">Tailblocks</span>
       </a>
       <nav class="md:ml-auto flex flex-wrap items-center text-base justify-center">
+        {% if request.user.is_authenticated %}
         <a href="{% url 'homePage' %}" class="mr-5 hover:text-gray-900">Home</a>
         <a href="{% url 'leads:leadList' %}" class="mr-5 hover:text-gray-900">Leads</a>
-        {% if not request.user.is_authenticated %}
+
+        {% if request.user.is_organizer %}
+        <a href="{% url 'agents:agentList' %}" class="mr-5 hover:text-gray-900">Agents</a>
+        {% endif %}
+
+        {% else %}
         <a href='{% url "signup" %}' class="mr-5 hover:text-gray-900">Signup</a>
         {% endif %}
       </nav>
+
       {% if request.user.is_authenticated %}
       login_user {{request.user}}
       <form method="post" action="{% url 'logout' %}">
