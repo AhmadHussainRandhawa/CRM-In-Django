@@ -7,25 +7,32 @@
       <div class="lg:w-4/5 mx-auto flex flex-wrap">
         <div class="lg:w-1/2 w-full lg:pr-10 lg:py-6 mb-6 lg:mb-0">
           <h2 class="text-sm title-font text-gray-500 tracking-widest">My CRM</h2>
-          <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">  Lead Details: {{ lead.first_name }} {{ lead.last_name }}</h1>
-
+          <h1 class="text-gray-900 text-3xl title-font font-medium mb-4">  Agent Details: {{ agent.user.get_full_name|default:agent.user.username }} </h1>
           <div class="flex mb-4">
-            <a href="{% url 'leads:leadDetail' lead.pk %}" class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">Details</a>
-            <a href='#' class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Reviews</a>
-            <a href="{% url 'leads:leadEdit' lead.pk %}" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Edit</a>
+            <a href="{% url 'agents:agentDetail' agent.pk %}" class="flex-grow text-indigo-500 border-b-2 border-indigo-500 py-2 text-lg px-1">Details</a>
+            <a href="#" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Reviews</a>
+            <a href="{% url 'agents:agentEdit' agent.pk %}" class="flex-grow border-b-2 border-gray-300 py-2 text-lg px-1">Edit</a>
           </div>
           <p class="leading-relaxed mb-4">Fam locavore kickstarter distillery. Mixtape chillwave tumeric sriracha taximy chia microdosing tilde DIY. XOXO fam inxigo juiceramps cornhole raw denim forage brooklyn. Everyday carry +1 seitan poutine tumeric. Gastropub blue bottle austin listicle pour-over, neutra jean.</p>
           <div class="flex border-t border-gray-200 py-2">
-            <span class="text-gray-500">Full Name</span>
-            <span class="ml-auto text-gray-900">{{lead.first_name}} {{lead.last_name}}</span>
+            <span class="text-gray-500">Username</span>
+            <span class="ml-auto text-gray-900">{{agent.user.username}}</span>
           </div>
           <div class="flex border-t border-gray-200 py-2">
-            <span class="text-gray-500">Date of Birth</span>
-            <span class="ml-auto text-gray-900">{{lead.date_of_birth}}</span>
+            <span class="text-gray-500">Organization</span>
+            <span class="ml-auto text-gray-900">{{agent.organization}}</span>
           </div>
           <div class="flex border-t border-gray-200 py-2">
-            <span class="text-gray-500">Agent assigned</span>
-            <span class="ml-auto text-gray-900">{{lead.agent}}</span>
+            <span class="text-gray-500">Email</span>
+            <span class="ml-auto text-gray-900">{{agent.user.email}}</span>
+          </div>
+          <div class="flex border-t border-gray-200 py-2">
+            <span class="text-gray-500">Whatsapp</span>
+            <span class="ml-auto text-gray-900">{{agent.whatsapp}}</span>
+          </div>
+          <div class="flex border-t border-gray-200 py-2">
+            <span class="text-gray-500">Active Status</span>
+            <span class="ml-auto text-gray-900">{{agent.active}}</span>
           </div>
           <div class="flex">
             <button class="flex ml-auto text-white bg-indigo-500 border-0 py-2 px-6 focus:outline-none hover:bg-indigo-600 rounded">Button</button>

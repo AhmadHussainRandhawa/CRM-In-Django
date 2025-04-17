@@ -3,6 +3,7 @@ from django.views import generic
 from leads.models import Agent
 from .forms import AgentModelForm
 
+
 class AgentListView(generic.ListView):
     template_name = 'agents/agentList.html'
     context_object_name = 'agents'
@@ -10,6 +11,7 @@ class AgentListView(generic.ListView):
     def get_queryset(self):
         return Agent.objects.all()
     
+
 class AgentCreateView(generic.CreateView):
     template_name = 'agents/agentCreate.html'
     form_class = AgentModelForm
@@ -23,3 +25,32 @@ class AgentCreateView(generic.CreateView):
         agent.save()
         return super().form_valid(form)
     
+
+class AgentDetailView(generic.DetailView):
+    template_name = 'agents/agentDetail.html'
+    context_object_name = 'agent'
+
+    def get_queryset(self):
+        return Agent.objects.all()
+
+
+class AgentEditView(generic.UpdateView):
+    template_name = 'agents/agentEdit.html'
+    context_object_name = 'agent'
+    form_class = AgentModelForm
+
+    def get_success_url(self):
+        return reverse('agents:agentList')
+    
+    def get_queryset(self):
+        return Agent.objects.all()
+
+
+class AgentDeleteView(generic.DeleteView):
+    template_name = 'agents/agentDelete.html'
+
+    def get_success_url(self):
+        return reverse('agents:agentList')
+
+    def get_queryset(self):
+        return Agent.objects.all()

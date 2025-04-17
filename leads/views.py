@@ -40,7 +40,7 @@ class LeadDetailView(LoginRequiredMixin, generic.DetailView):
     context_object_name = 'lead'
 
 
-class LeadUpdateView(LoginRequiredMixin, generic.UpdateView):
+class LeadEditView(LoginRequiredMixin, generic.UpdateView):
     template_name = 'leads/leadEdit.html'
     queryset = Lead.objects.all()
     form_class = LeadModelForm
