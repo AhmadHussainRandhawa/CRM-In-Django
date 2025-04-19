@@ -8,7 +8,7 @@ User = get_user_model()
 class LeadModelForm(forms.ModelForm):
     class Meta:
         model=Lead
-        fields = ['first_name', 'last_name', 'date_of_birth', 'agent']
+        fields = ['first_name', 'last_name', 'date_of_birth', 'organization', 'agent']
         widgets={ 'date_of_birth': forms.DateInput(attrs={'type':'date'})}
         
 

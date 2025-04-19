@@ -26,7 +26,8 @@ class Lead(models.Model):
     last_name = models.CharField(max_length=150, verbose_name="Last Name")
     date_of_birth = models.DateField(
         null=True, blank=True, validators=[validate_date_of_birth])
-    agent = models.ForeignKey("Agent", on_delete=models.CASCADE, related_name="leads")
+    organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    agent = models.ForeignKey("Agent", null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         indexes = [models.Index(fields=['first_name', 'last_name'])]
@@ -36,7 +37,7 @@ class Lead(models.Model):
     
 
 class Agent(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agent_profile', verbose_name='User')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, verbose_name='User')
     active = models.BooleanField(default=True, )
     organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
