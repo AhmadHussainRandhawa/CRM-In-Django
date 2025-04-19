@@ -36,7 +36,7 @@ class Lead(models.Model):
     
 
 class Agent(models.Model):
-    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agent_profile', verbose_name='System User')
+    user = models.OneToOneField(User, on_delete=models.CASCADE, related_name='agent_profile', verbose_name='User')
     active = models.BooleanField(default=True, )
     organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
 
