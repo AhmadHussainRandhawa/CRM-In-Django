@@ -9,4 +9,5 @@ urlpatterns = [
     path('<int:pk>/edit/', views.LeadEditView.as_view(), name='leadEdit'),
     path('<int:pk>/delete/', views.LeadDeleteView.as_view(), name='leadDelete'),
     path('<int:pk>/assign-agent/', views.AssignAgentView.as_view(), name='assignAgent'),
+    path('category/', views.CategoryListView.as_view(), name='categoryList'),
 ]
