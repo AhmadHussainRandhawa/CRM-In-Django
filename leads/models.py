@@ -28,6 +28,7 @@ class Lead(models.Model):
         null=True, blank=True, validators=[validate_date_of_birth])
     organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     agent = models.ForeignKey("Agent", null=True, blank=True, on_delete=models.SET_NULL)
+    category = models.ForeignKey("Category", null=True, blank=True, on_delete=models.SET_NULL)
 
     class Meta:
         indexes = [models.Index(fields=['first_name', 'last_name'])]
@@ -50,3 +51,14 @@ def post_user_created_signal(sender, instance, created, **kwargs):
         UserProfile.objects.create(user=instance)
 
 post_save.connect(post_user_created_signal, sender=User)
+
+
+class Category(models.Model):
+    name = models.CharField(max_length=150)     # New, Contacted, converted, unconverted
+    organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
+    
+    class Meta:
+        verbose_name_plural = 'Categories'
+
+    def __str__(self):
+        return self.name
