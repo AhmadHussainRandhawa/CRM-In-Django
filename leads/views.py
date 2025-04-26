@@ -1,7 +1,7 @@
 from django.core.mail import send_mail
-from django.shortcuts import render, redirect, reverse
+from django.shortcuts import render, redirect, reverse, get_object_or_404
 from .models import Lead, Category
-from .forms import LeadModelForm, CustomeUserCreationForm, AssignAgentForm
+from .forms import LeadModelForm, CustomeUserCreationForm, AssignAgentForm, LeadCategoryUpdateForm
 from django.views import generic
 from django.contrib.auth.mixins import LoginRequiredMixin
 from agents.mixins import OrganizationAndLoginRequiredMixin
@@ -163,6 +163,31 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
         context.update({'leads':leads})
         return context
 
+
+class LeadCategoryUpdateView(LoginRequiredMixin, generic.UpdateView):
+    template_name = 'leads/leadCategoryUpdate.html'
+    form_class = LeadCategoryUpdateForm
+
+    def get_queryset(self):
+        user = self.request.user
+
+        if user.is_organizer:
+            queryset = Category.objects.filter(organization=user.userprofile)
+        else:
+            queryset = Category.objects.filter(organization=user.agent.organization)
+            queryset = queryset.filter(agent__user=user)
+    
+        return queryset
+    def get_context_data(self, **kwargs):
+        context = super().get_context_data(**kwargs)
+
+        # Add this line (you're in a Category update view, so you likely need to fetch the related lead manually)
+        context["lead"] = self.object.lead_set.first()  # or any other logic that fits your design
+
+        return context
+
+    def get_success_url(self):
+        return reverse('leads:leadDetail', kwargs={"pk":self.get_object().id})
     
 
 # Function based views:

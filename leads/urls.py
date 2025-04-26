@@ -10,6 +10,7 @@ urlpatterns = [
     path('<int:pk>/delete/', views.LeadDeleteView.as_view(), name='leadDelete'),
     path('<int:pk>/assign-agent/', views.AssignAgentView.as_view(), name='assignAgent'),
     path('category/', views.CategoryListView.as_view(), name='categoryList'),
-    path('category/detail/<int:pk>/', views.CategoryDetailView.as_view(), name='categoryDetail'),
+    path('category/detai/<int:pk>/', views.CategoryDetailView.as_view(), name='categoryDetail'),
+    path('category/update/<int:pk>/', views.LeadCategoryUpdateView.as_view(), name='leadCategoryUpdate'),
 
 ]

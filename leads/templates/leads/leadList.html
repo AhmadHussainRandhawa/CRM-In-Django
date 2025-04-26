@@ -5,11 +5,10 @@
 
 
 <section class="text-gray-600 body-font">
-  <div class="container px-5 py-24 mx-auto flex flex-wrap">
-    
+  <div class="container px-5 py-24 mx-auto flex flex-wrap flex-col">
     <div class='w-full mb-6 py-6 flex justify-between items-center border-b border-gray-200'>
       <div>
-        <h1 class='text-4xl text-gray-800'>Assigned Leads</h1>
+        <a class='text-gray-800 hover:text-blue-500' href="{% url 'leads:categoryList' %}">Leads Categories</a>
       </div>    
       {% if request.user.is_organizer %}     
       <div>
@@ -17,6 +16,7 @@
       </div>
       {% endif %}
       </div>
+      <h1 class="text-4xl text-gray-800 mb-4 text-left">Leads</h1>
     <div class="flex flex-wrap -m-4">
         {% for lead in leads %}
       <div class="p-4 lg:w-1/2 md:w-full">
@@ -44,7 +44,7 @@
     {% if unassigned_leads %}
     <div class="mt-5 flex flex-wrap -m-4">
       <div class="w-full p-4 ">
-        <h1 class='text-4xl text-gray-800'>Unassigned Leads</h1>
+        <h1 class='text-4xl text-gray-800'>Unassigned Agents</h1>
       </div>
     {% for lead in unassigned_leads %}
     <div class="p-4 lg:w-1/2 md:w-full">
