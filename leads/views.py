@@ -141,7 +141,7 @@ class CategoryListView(LoginRequiredMixin, generic.ListView):
             queryset = Lead.objects.filter(organization=user.userprofile, category__isnull=True).count()
             context.update({'unassigned_leads_count': queryset})
         return context
-        
+    
 
 class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
     template_name = 'leads/categoryDetail.html'
@@ -163,12 +163,7 @@ class CategoryDetailView(LoginRequiredMixin, generic.DetailView):
         context.update({'leads':leads})
         return context
 
-        
-
     
-
-
-
 
 # Function based views:
 

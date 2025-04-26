@@ -18,7 +18,7 @@
           <tbody>
             {% for lead in leads %}
               <tr>
-                <td class="px-4 py-3">{{lead.first_name}}</td>
+                <td class="px-4 py-3 hover:text-blue-500"><a href="{% url 'leads:leadList' %}">{{lead.first_name}}</a></td>
                 <td class="px-4 py-3">{{lead.last_name}}</td>              
               </tr>
             {% endfor %}
