@@ -29,6 +29,10 @@ class Lead(models.Model):
     organization = models.ForeignKey(UserProfile, on_delete=models.CASCADE)
     agent = models.ForeignKey("Agent", null=True, blank=True, on_delete=models.SET_NULL)
     category = models.ForeignKey("Category", null=True, blank=True, on_delete=models.SET_NULL)
+    # description = models.TextField()
+    # date_added = models.DateTimeField(auto_now_add=True)
+    # phone_number = models.CharField(max_length=20)
+    # email = models.EmailField()
 
     class Meta:
         indexes = [models.Index(fields=['first_name', 'last_name'])]

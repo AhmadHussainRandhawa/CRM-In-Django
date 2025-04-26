@@ -6,8 +6,8 @@ app_name = 'agents'
 urlpatterns = [
     path('', AgentListView.as_view(), name='agentList'),
     path('create/', AgentCreateView.as_view(), name='agentCreate'),
-    path('<int:pk>/detail/', AgentDetailView.as_view(), name='agentDetail'),
-    path('<int:pk>/edit/', AgentEditView.as_view(), name='agentEdit'),
-    path('<int:pk>/delete/', AgentDeleteView.as_view(), name='agentDelete'),
+    path('detail/<int:pk>/', AgentDetailView.as_view(), name='agentDetail'),
+    path('edit/<int:pk>/', AgentEditView.as_view(), name='agentEdit'),
+    path('delete/<int:pk>/', AgentDeleteView.as_view(), name='agentDelete'),
     
 ]
